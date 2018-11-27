@@ -32,6 +32,9 @@ class Blockchain {
     this.addBlock(new Block("Genesis block"));
   }
   addBlock(newBlock) {
+    newBlock.height = this.chain.length;
+    newBlock.time = new Date().getTime().toString().slice(0, -3);
+
     if (this.chain.length > 0) {
       newBlock.previousBlockHash = this.chain[this.chain.length-1].hash;
     }
