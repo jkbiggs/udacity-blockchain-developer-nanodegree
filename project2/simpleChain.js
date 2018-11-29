@@ -44,7 +44,7 @@ class Blockchain {
     newBlock.hash = SHA256(JSON.stringify(newBlock)).toString();
     
     // persist to LevelDB
-    await this.db.addBlockToDB(newBlock.height, JSON.stringify(newBlock).toString());
+    return JSON.parse(await this.db.addBlockToDB(newBlock.height, JSON.stringify(newBlock).toString()));
   }
 
   // Get block height
@@ -132,5 +132,19 @@ class Blockchain {
   }
 }
 
-module.exports.Blockchain = Blockchain;
+/********************** TEST Implementation **************/
+let chain = new Blockchain();
+
+(function theLoop (i) {
+  setTimeout(function () {
+      let blockTest = new Block("Test Block - " + (i + 1));
+      chain.addBlock(blockTest).then((result) => {
+          console.log(result);
+          i++;
+          if (i < 10) theLoop(i);
+      });
+  }, 100);
+})(0);
+
+setTimeout(() => chain.validateChain(), 2000);
 
