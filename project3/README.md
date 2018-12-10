@@ -27,7 +27,9 @@ Use a software like postman or a simple CURL on the terminal to send the request
 
 GET
 http://localhost:8000/api/block/-1 (should throw out of bounds exception)
+
 http://localhost:8000/api/block/5
+
 http://localhost:8000/api/block/10 (should throw out of bounds exception, if a post hasn't been made)
 
 ```
