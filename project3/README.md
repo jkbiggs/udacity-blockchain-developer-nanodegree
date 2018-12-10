@@ -25,7 +25,7 @@ node app.js
 
 Use a software like postman or a simple CURL on the terminal to send the requests to the base url http://localhost:8000 with one of the below supported endpoints:
 
--GET
+GET
 http://localhost:8000/api/block/-1 (should throw out of bounds exception)
 http://localhost:8000/api/block/5
 http://localhost:8000/api/block/10 (should throw out of bounds exception, if a post hasn't been made)
@@ -34,7 +34,7 @@ http://localhost:8000/api/block/10 (should throw out of bounds exception, if a p
  curl http://localhost:8000/api/block/0
 ```
 
--POST
+POST
 http://localhost:8000/api/block?body=biggieblocks
 
 ```
