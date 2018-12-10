@@ -24,7 +24,7 @@ class BlockController {
     getBlockByIndex() {
         this.app.get("/api/block/:index", (req, res) => {
             let index = req.params.index;
-            if (index <= this.blocks.length) {
+            if (index < 0 || index >= this.blocks.length) {
                 res.send("Error: index out of bounds exception");
             } else {
                 res.send(this.blocks[index]);
@@ -37,14 +37,14 @@ class BlockController {
      */
     postNewBlock() {
         this.app.post("/api/block", (req, res) => {
-            if (req.query.body != null) {
+            if (req.query.body == null) {
+                res.send("Error: empty block body");
+            } else {
                 let blockAux = new BlockClass.Block(req.query.body);
                 blockAux.height = this.blocks.length;
                 blockAux.hash = SHA256(JSON.stringify(blockAux)).toString();
                 this.blocks.push(blockAux);
                 res.send("Successful add of block #" + blockAux.height + " " + blockAux.body);
-            } else {
-                res.send("Error: empty block body");
             }
         });
     }

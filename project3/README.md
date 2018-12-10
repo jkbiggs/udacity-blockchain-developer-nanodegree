@@ -1,12 +1,42 @@
-# Express.JS Exercise with Node.js
+## Framework used
+Express.js
 
-In this exercise you will practice a creation of a web service that respond with the block hash.
+## Getting started
+Clone the repository to your local computer.
+```
+git clone https://github.com/jkbiggs/udacity-blockchain-developer-nanodegree.git
+```
 
-## Steps to follow
+Open the terminal and change directory to Project 3
+```
+cd project3
+```
 
-1. Clone the repository to your local computer.
-2. Open the terminal and install the packages: `npm install`.
-3. Open the file `app.js`and `BlockController.js` and start coding.
-4. Run your application `node app.js`
-5. Test your Endpoints with Curl or Postman.
-6. Answer the quiz in the classroom.
+Install the project packages:
+```
+npm install
+```
+
+## Testing
+Run the server:
+```
+node app.js
+```
+
+Use a software like postman or a simple CURL on the terminal to send the requests to the base url http://localhost:8000 with one of the below supported endpoints:
+
+- GET
+http://localhost:8000/api/block/-1 --should throw out of bounds exception
+http://localhost:8000/api/block/5
+http://localhost:8000/api/block/10 --should throw out of bounds exception (if a post hasn't been made)
+
+```
+ curl http://localhost:8000/api/block/0
+```
+
+-POST
+http://localhost:8000/api/block?body=biggieblocks
+
+```
+ curl http://localhost:8000/api/block?body=biggieblocks
+```
