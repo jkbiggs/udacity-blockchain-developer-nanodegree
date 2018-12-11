@@ -36,7 +36,7 @@ Test the edge cases < 0 and out of bounds
 ```
 
 ### POST
-Test the posting of a new block.  Make sure to add raw json body data 
+Test the posting of a new block.  Make sure to add raw (json) body data 
 * http://localhost:8000/block
 
 ```
