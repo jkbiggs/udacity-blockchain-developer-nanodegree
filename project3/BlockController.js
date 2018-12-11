@@ -19,10 +19,10 @@ class BlockController {
     }
 
     /**
-     * Implement a GET Endpoint to retrieve a block by index, url: "/api/block/:index"
+     * GET Endpoint to retrieve a block by index, url: "/block/:index"
      */
     getBlockByIndex() {
-        this.app.get("/api/block/:index", (req, res) => {
+        this.app.get("/block/:index", (req, res) => {
             let index = req.params.index;
             if (index < 0 || index >= this.blocks.length) {
                 res.send("Error: index out of bounds exception");
@@ -33,14 +33,14 @@ class BlockController {
     }
 
     /**
-     * Implement a POST Endpoint to add a new Block, url: "/api/block"
+     * POST Endpoint to add a new Block, url: "/block"
      */
     postNewBlock() {
-        this.app.post("/api/block", (req, res) => {
-            if (req.query.body == null) {
+        this.app.post("/block", (req, res) => {
+            if (req.body.body == undefined || req.body.body == "") {
                 res.send("Error: empty block body");
             } else {
-                let blockAux = new BlockClass.Block(req.query.body);
+                let blockAux = new BlockClass.Block(req.body.body);
                 blockAux.height = this.blocks.length;
                 blockAux.hash = SHA256(JSON.stringify(blockAux)).toString();
                 this.blocks.push(blockAux);
