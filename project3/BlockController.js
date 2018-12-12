@@ -40,9 +40,17 @@ class BlockController {
             if (req.body.body == undefined || req.body.body == "") {
                 res.send("Error: empty block body");
             } else {
+                // create a new block from the request's body data
                 let blockAux = new BlockClass.Block(req.body.body);
                 blockAux.height = this.blocks.length;
                 blockAux.hash = SHA256(JSON.stringify(blockAux)).toString();
+                
+                // get the previous blocks and retrieve it's hash
+                if (this.blocks.length > 0) {
+                    let previousBlock = this.blocks[this.blocks.length - 1];
+                    blockAux.previousBlockHash = previousBlock.hash;
+                }
+
                 this.blocks.push(blockAux);
                 res.send("Successful add of block #" + blockAux.height + " " + blockAux.body);
             }
@@ -58,6 +66,11 @@ class BlockController {
                 let blockAux = new BlockClass.Block(`Test Data #${index}`);
                 blockAux.height = index;
                 blockAux.hash = SHA256(JSON.stringify(blockAux)).toString();
+                
+                if (this.blocks.length > 0) {
+                    let previousBlock = this.blocks[this.blocks.length - 1];
+                    blockAux.previousBlockHash = previousBlock.hash;
+                }
                 this.blocks.push(blockAux);
             }
         }
