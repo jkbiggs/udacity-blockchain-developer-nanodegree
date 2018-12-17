@@ -25,7 +25,12 @@ class BlockController {
         this.app.get("/block/:index", (req, res) => {
             let index = req.params.index;
             if (index < 0 || index >= this.blocks.length) {
-                res.send("Error: index out of bounds exception");
+                res.status(404).json({
+                    "error" : {    
+                        "status": 404,
+                        "message": "Block not found."   
+                    }
+                })
             } else {
                 res.send(this.blocks[index]);
             }
@@ -38,7 +43,12 @@ class BlockController {
     postNewBlock() {
         this.app.post("/block", (req, res) => {
             if (req.body.body == undefined || req.body.body == "") {
-                res.send("Error: empty block body");
+                res.status(400).json({
+                    "error" : {
+                        "status": 400,
+                        "message": "Empty block body."
+                    }
+                })
             } else {
                 // create a new block from the request's body data
                 let blockAux = new BlockClass.Block(req.body.body);
@@ -52,7 +62,7 @@ class BlockController {
                 }
 
                 this.blocks.push(blockAux);
-                res.send("Successful add of block #" + blockAux.height + " " + blockAux.body);
+                res.status(201).send(blockAux);
             }
         });
     }
