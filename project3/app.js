@@ -1,6 +1,4 @@
-//Importing Express.js module
 const express = require("express");
-//Importing BodyParser.js module
 const bodyParser = require("body-parser");
 
 /**
@@ -20,7 +18,7 @@ class BlockAPI {
 	}
 
     /**
-     * Initilization of the Express framework
+     * Initialization of the Express framework
      */
 	initExpress() {
 		this.app.set("port", 8000);
@@ -35,7 +33,7 @@ class BlockAPI {
 	}
 
     /**
-     * Initilization of all the controllers
+     * Initialization of all the controllers
      */
 	initControllers() {
 		require("./BlockController.js")(this.app);
