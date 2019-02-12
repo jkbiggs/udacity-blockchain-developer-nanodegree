@@ -1,5 +1,16 @@
 const SHA256 = require('crypto-js/sha256');
+const LevelSandbox = require("./levelSandbox");
 const BlockClass = require('./Block.js');
+
+/*
+    TODO: 
+    1. Update .blocks with calls to the db
+    2. Add star data to the object being stored and retrieved
+    3. Add mempool?
+    4. 
+
+*/
+
 
 /**
  * Controller Definition to encapsulate routes to work with blocks
@@ -33,20 +44,23 @@ class BlockController {
                 })
             } else {
                 res.send(this.blocks[index]);
+                //TODO: make sure star info is in response
+                //RA 13h 03m 33.35sec, Dec -49° 31’ 38.1” Mag 4.83 Cen
             }
         });
     }
 
     /**
      * POST Endpoint to add a new Block, url: "/block"
+     * Request should contain an address and star
      */
     postNewBlock() {
         this.app.post("/block", (req, res) => {
-            if (req.body.body == undefined || req.body.body == "") {
+            if (req.body.address == undefined || req.body.address == "") {
                 res.status(400).json({
                     "error" : {
                         "status": 400,
-                        "message": "Empty block body."
+                        "message": "Empty block address."
                     }
                 })
             } else {
@@ -66,6 +80,43 @@ class BlockController {
             }
         });
     }
+
+    /**
+     *  POST Endpoint to validate request url: "/requestValidation"
+     */
+    postRequestValidation() {
+        this.app.post("/requestValidation", (req, res) => {
+            if (req.body.body == undefined || req.body.body == "") {
+                res.status(400).json({
+                    "error" : {
+                        "status": 400,
+                        "message": "Empty request validation body."
+                    }
+                })    
+            } else {
+                //TODO
+            }
+        });
+    }
+
+    /**
+     *  POST Endpoint to validate message signature url: "/message-signature/validate"
+     */
+    postRequestValidation() {
+        this.app.post("/message-signature/validate", (req, res) => {
+            if (req.body.body == undefined || req.body.body == "") {
+                res.status(400).json({
+                    "error" : {
+                        "status": 400,
+                        "message": "Empty message signature body."
+                    }
+                })    
+            } else {
+                //TODO
+            }
+        });
+    }
+
 
     /**
      * Help method to initialized Mock dataset, adds 10 test blocks to the blocks array
